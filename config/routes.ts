@@ -6,6 +6,7 @@ export default [
   },
   { path: '/', redirect: '/add_chart' },
   { path: '/add_chart', name: 'Smart Analysis', icon: 'barChart', component: './AddChart' },
+  { path: '/run_bse', name: 'Run BSE', icon: 'barChart', component: './RunBSE' },
   { path: '/my_chart', name: 'My Chart', icon: 'pieChart', component: './MyChart' },
   {
     path: '/admin',
