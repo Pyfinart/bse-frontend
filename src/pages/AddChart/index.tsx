@@ -19,7 +19,7 @@ import ReactEChart from 'echarts-for-react';
 import React, { useState } from 'react';
 
 /**
- * 添加图表流
+ * 添加图表页面
  * @constructor
  */
 const AddChart: React.FC = () => {
