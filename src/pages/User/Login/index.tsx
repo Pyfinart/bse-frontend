@@ -77,7 +77,7 @@ const Login: React.FC = () => {
       // 登录
       const res = await userLoginUsingPost(values);
       if (res.code === 0) {
-        const defaultLoginSuccessMessage = '登录成功！';
+        const defaultLoginSuccessMessage = 'Successfully logged in！';
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
@@ -87,7 +87,7 @@ const Login: React.FC = () => {
         message.error(res.message);
       }
     } catch (error) {
-      const defaultLoginFailureMessage = '登录失败，请重试！';
+      const defaultLoginFailureMessage = 'Failed to log in, please try again later';
       console.log(error);
       message.error(defaultLoginFailureMessage);
     }
@@ -96,7 +96,7 @@ const Login: React.FC = () => {
     <div className={styles.container}>
       <Helmet>
         <title>
-          {'登录'}- {Settings.title}
+          {'Login'}- {Settings.title}
         </title>
       </Helmet>
       <div
@@ -140,7 +140,7 @@ const Login: React.FC = () => {
                   size: 'large',
                   prefix: <UserOutlined />,
                 }}
-                placeholder={'Please enter userename'}
+                placeholder={'Please enter username'}
                 rules={[
                   {
                     required: true,
@@ -169,7 +169,7 @@ const Login: React.FC = () => {
               marginBottom: 24,
             }}
           >
-            <Link to={'/user/register'}>Register</Link>
+            {/*<Link to={'/user/register'}>Register</Link>*/}
           </div>
         </LoginForm>
       </div>

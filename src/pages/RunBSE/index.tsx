@@ -1,4 +1,4 @@
-import { genChartByAiUsingPost } from '@/services/bse-frontend/chartController';
+import { receiveAlgorithmParameterUsingPost } from '@/services/bse-frontend/bseController';
 import {
   Button,
   Card,
@@ -15,7 +15,7 @@ import {
 } from 'antd';
 import ReactEChart from 'echarts-for-react';
 import React, { useState } from 'react';
-
+import { BSEAndAiParameterRequest } from '@/services/bse-frontend/bseController';
 /**
  * 添加图表页面
  * @constructor
@@ -42,10 +42,35 @@ const AddChart: React.FC = () => {
     setSubmitting(true);
     setOption(undefined); // 每次提交清空option，防止上轮图表叠在下轮图表上
     setChart(undefined); // 每次提交清空图表表数据
+
     // 对接后端
+    const bseRequest: BSEAndAiParameterRequest = {
+      ...values,
+      sellersSpec: JSON.parse(values.sellersSpec),
+      buyersSpec: JSON.parse(values.buyersSpec)
+    };
+    // convert to json
 
+    try {
+      const res = await receiveAlgorithmParameterUsingPost(bseRequest);
+      if (!res?.data) {
+        message.error(res?.message);
+      } else {
+        message.success('analysis succeed');
+        // 图表的EChart option
+        const chartOption = JSON.parse(res.data.genChart ?? '');
+        if (!chartOption) {
+          throw new Error(res?.message + 'chart option is null');
+        } else {
+          setChart(res.data);
+          setOption(chartOption);
+        }
+      }
+    } catch (e: any) {
+      console.error('analysis failed, ' + e.message);
+    }
 
-    console.log(values);
+    console.log(bseRequest);
     // 提交结束设置为false
     setSubmitting(false);
   };
@@ -141,7 +166,7 @@ const AddChart: React.FC = () => {
               </Form.Item>
 
               <Form.Item name="name" label="Table name">
-                <Input placeholder='please input table name' />
+                <Input placeholder="please input table name" />
               </Form.Item>
 
               <Form.Item name="chartType" label="chart type">

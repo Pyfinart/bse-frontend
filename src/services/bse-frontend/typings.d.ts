@@ -71,12 +71,6 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponseString_ = {
-    code?: number;
-    data?: string;
-    message?: string;
-  };
-
   type BaseResponseUser_ = {
     code?: number;
     data?: User;
@@ -87,6 +81,24 @@ declare namespace API {
     code?: number;
     data?: UserVO;
     message?: string;
+  };
+
+  type BSEAndAiParameterRequest = {
+    buyerRangeFrom?: number;
+    buyerRangeTo?: number;
+    buyersSpec?: Record<string, any>;
+    chartType?: string;
+    endTime?: number;
+    goal?: string;
+    name?: string;
+    orderInterval?: number;
+    sellerRangeFrom?: number;
+    sellerRangeTo?: number;
+    sellersSpec?: Record<string, any>;
+    startTime?: number;
+    stepMode?: string;
+    timeMode?: string;
+    trialId?: string;
   };
 
   type Chart = {
@@ -144,6 +156,7 @@ declare namespace API {
   };
 
   type ChatResponse = {
+    chartId?: number;
     genChart?: string;
     genResult?: string;
   };
@@ -337,10 +350,6 @@ declare namespace API {
     updateTime?: string;
     user?: UserVO;
     userId?: number;
-  };
-
-  type uploadFileUsingPOSTParams = {
-    biz?: string;
   };
 
   type User = {
